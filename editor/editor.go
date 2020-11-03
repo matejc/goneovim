@@ -718,6 +718,7 @@ func (e *Editor) workspaceUpdate() {
 
 func (e *Editor) keyPress(event *gui.QKeyEvent) {
 	input := e.convertKey(event)
+	fmt.Println("DEBUG::", event.Text(), event.Key(), event.Modifiers(), input)
 	if input != "" {
 		e.workspaces[e.active].nvim.Input(input)
 	}

@@ -738,7 +738,7 @@ func (e *Editor) copyClipBoard() {
 
 }
 
-func (e *Editor) workspaceNew() {
+func (e *Editor) workspaceNew(path string) {
 	if len(e.workspaces) == 10 {
 		return
 	}

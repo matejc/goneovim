@@ -715,6 +715,7 @@ func (w *Workspace) initGonvim() {
 		}
 		gonvimCommands = gonvimCommands + `
 	command! GonvimWorkspaceNew call rpcnotify(0, "Gui", "gonvim_workspace_new")
+	command! -nargs=1 GonvimWorkspaceNewPath call rpcnotify(0, "Gui", "gonvim_workspace_new_path", <args>)
 	command! GonvimWorkspaceNext call rpcnotify(0, "Gui", "gonvim_workspace_next")
 	command! GonvimWorkspacePrevious call rpcnotify(0, "Gui", "gonvim_workspace_previous")
 	command! -nargs=1 GonvimWorkspaceSwitch call rpcnotify(0, "Gui", "gonvim_workspace_switch", <args>)
@@ -1898,7 +1899,9 @@ func (w *Workspace) handleRPCGui(updates []interface{}) {
 	case "gonvim_textchanged":
 		w.maxLine = util.ReflectToInt(updates[1])
 	case "gonvim_workspace_new":
-		editor.workspaceNew()
+		editor.workspaceNew("")
+	case "gonvim_workspace_new_path":
+		editor.workspaceNew(updates[1].(string))
 	case "gonvim_workspace_next":
 		editor.workspaceNext()
 	case "gonvim_workspace_previous":
